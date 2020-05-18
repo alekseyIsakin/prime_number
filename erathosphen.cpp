@@ -5,6 +5,9 @@
 #include <limits>
 
 using namespace std;
+
+typedef unsigned long long ull;
+
 class Erathosven_class;
 
 struct Thread_data{
@@ -177,66 +180,73 @@ public:
     }
 };
 
-vector<int> erathosvenCircleFact(unsigned int n){
+vector<ull>erathosvenCircleFact(ull n){
     const int COUNT_NUM = 8;
     const int BASIS = 30;
     const int num[] = {1, 7, 11, 13, 17, 19, 23, 29};
+    ull roof = (n/BASIS)*COUNT_NUM;
     int num_ind[BASIS];
 
-    vector<int> sv;
-    vector<int> tmp;
-    vector<int> low;
+    bool*sv = (bool*)malloc(sizeof(bool)*(roof));
+    vector<ull> low;
 
+    for (ull i=0; i<roof; i++) sv[i] = 1;
     for (int i=0; i<BASIS; i++){ num_ind[i] = -1; }
     for (int i=0; i<COUNT_NUM; i++){ 
         int ind = num[i];
         num_ind[ind] = i; 
     }
-
-    for (int i=0; i<(n/30); i++){
+    
+    for (ull i=0; i<roof/COUNT_NUM; i++){
         for (int j=0; j<COUNT_NUM; j++){
-            int dg = 30*i + num[j];
-            sv.push_back(dg);
+            ull dg = BASIS*i + num[j];
+            
             if (dg < sqrt(n)) low.push_back(dg);
         }
     }
 
-    for(int i=sv.size()-1; i>0; i--){
-        for (int j=1; j<low.size(); j++){    
-            long long t = low[j] * sv[i];
+    for(ull i=roof-1; i>0; i--){
+        if (sv[i] == 0) break;
+        for (ull j=1; j<low.size(); j++){
+            
+            ull t = low[j] * ((i/COUNT_NUM)*BASIS + num[i%COUNT_NUM]);
             
             if (t > n) break;
-    
-            int reminder = t % BASIS;
-            int ind = num_ind[reminder];
 
-            if (ind >= 0){                
-                int ind = (t / BASIS)*COUNT_NUM + num_ind[reminder];
-                sv[ind] = 0;
-            } 
+            int reminder = t % BASIS;
+            ull ind = num_ind[reminder];
+            if ((t / BASIS)*8 + ind > roof) break;
+            sv[(t / BASIS)*8 + ind] = 0;
         }
     }
-
-    for (int i : sv){ if (i != 0) tmp.push_back(i); }
+    low.clear();
+    vector<ull> tmp; 
+    for (ull i=0; i<roof; i++) {
+        if (sv[i]!= 0) { 
+            tmp.push_back((i/COUNT_NUM)*BASIS + num[i%COUNT_NUM]);
+        }
+    }
+    free(sv);
     return tmp;
 }
 
-vector<int>  Sundaram(int n){
-    int k = (n-2)/2;
-    bool*a = (bool*)malloc(sizeof(bool)*(k+1));
-    vector<int> tmp;
-    for (int i=0; i<(k+1); i++){ a[i]=(0); }
+vector<ull>  Sundaram(ull n){
+    ull k = (n)/2;
+    bool*a = (bool*)malloc(sizeof(bool)*(ull(k+1)));
+    vector<ull > tmp;
+    for (ull i=0; i<(k); i++){ a[i]=(false); }
 
-    for(int i=1; i<k+1; i++){
-        int j=i;
-        while((unsigned long long)(i+j+2*i*j) <= k){
-            a[(unsigned long long)(i+j+2*i*j)] = true;
+    for(ull i=1; i<k+1; i++){
+        ull j=i;
+        while((ull)(i+j+2*i*j) <= k){
+            a[(ull)(i+j+2*i*j)] = true;
             j++;
         }
     }
     for (int i=0; i<(k+1); i++){
         if (a[i] == 0) { tmp.push_back(2*i + 1); }
     }
+    free (a);
     return tmp;
 }
 

@@ -26,20 +26,19 @@ std::vector<int> erathosvenBase(unsigned int n){
 }
 
 int main(){
-
     Erathosven_class er;
     unsigned int st_time, end_time;
     std::vector<int> t;
-    int x = 99000000;
+    ull x = 9000000000;
+    std::cout << "N: " << x << std::endl;
 
     /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
-    std::cout << "start test alg: ";
-    st_time = clock();
+    std::cout << "start Sundaram alg: ";
         
-    t = Sundaram(x);
-
+    st_time = clock();
+    std::cout << Sundaram(x).size() << std::endl;
     end_time = clock();
-    std::cout << t.size() << std::endl;
+
     std::cout << "in time: " << end_time - st_time << std::endl;
     // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
     // std::cout << "start base alg: ";
@@ -57,14 +56,15 @@ int main(){
     std::cout << "start circle fact: ";
 
     st_time = clock();
-    t = erathosvenCircleFact(x);
+    vector<ull> ptr= erathosvenCircleFact(x);
     end_time = clock();
     
-    std::cout  << (t).size() << std::endl;
+    std::cout  << ptr.size() << std::endl << ptr.back() << std::endl;
+    ptr.clear();
+    std::cout << "in time: " << end_time - st_time << std::endl;
     t.clear();
 
-    std::cout << "in time: " << end_time - st_time << std::endl;
-    
+    std::cout << std::endl;
     // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
     // std::cout << "start thread: ";
     
