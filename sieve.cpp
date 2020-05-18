@@ -29,17 +29,17 @@ int main(){
     Erathosven_class er;
     unsigned int st_time, end_time;
     std::vector<int> t;
-    ull x = 900000000;
+    ull x = 9900000000;
     std::cout << "N: " << x << std::endl;
 
     /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
-    std::cout << "start Sundaram alg: ";
+    // std::cout << "start Sundaram alg: ";
         
-    st_time = clock();
-    std::cout << Sundaram(x).size() << std::endl;
-    end_time = clock();
+    // st_time = clock();
+    // std::cout << Sundaram(x).size() << std::endl;
+    // end_time = clock();
 
-    std::cout << "in time: " << end_time - st_time << std::endl;
+    // std::cout << "in time: " << end_time - st_time << std::endl;
     // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
     // std::cout << "start base alg: ";
     
@@ -53,40 +53,28 @@ int main(){
     // std::cout << "in time: " << end_time - st_time << std::endl;
 
     // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
-    std::cout << "start circle fact: ";
+    // std::cout << "start circle fact: ";
 
-    st_time = clock();
-    vector<ull> ptr= erathosvenCircleFact(x);
-    end_time = clock();
-    
-    std::cout  << ptr.size() << std::endl << ptr.back() << std::endl;
-    // for (auto i : ptr) cout << i << ' ';
-    ptr.clear();
-    std::cout << "in time: " << end_time - st_time << std::endl;
-    t.clear();
-
-    std::cout << std::endl;
-    // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
-    // std::cout << "start thread: ";
-    
     // st_time = clock();
-    // er.create_array(x);
+    // std::vector<ull> ptr= erathosvenCircleFact(x);
     // end_time = clock();
-
-    // int cnt = 0;
-    // for (auto i : er._elements){
-    //     for (auto j : i){
-    //             // std::cout.width(5);
-    //             if (j != 0) {
-    //                 // std::cout << j;
-    //                 cnt++; 
-    //                 }
-    //             // else std::cout << (' ');
-    //         }
-    //     // std::cout<< std::endl;  
-    // }
     
-    // std::cout << cnt << std::endl << "in time: " << end_time - st_time << std::endl;
+    // std::cout  << ptr.size() << std::endl;
+    // // for (auto i : ptr) cout << i << ' ';
+    // ptr.clear();
+    // std::cout << "in time: " << end_time - st_time << std::endl;
+    // std::cout << std::endl;
+
+    // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
+    std::cout << "start thread: ";
+    
+    st_time = clock();
+    er.create_array(x);
+    end_time = clock();
+
+    std::cout<< er.get_count_prime() << std::endl;  
+    
+    std::cout << std::endl << "in time: " << end_time - st_time << std::endl;
 
     // std::cout << cnt << std::endl;
     // std::cout << std::endl << er._elements.size() << std::endl;
