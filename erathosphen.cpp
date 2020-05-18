@@ -188,7 +188,6 @@ vector<ull>erathosvenCircleFact(ull n){
     int num_ind[BASIS];
 
     bool*sv = (bool*)malloc(sizeof(bool)*(roof));
-    vector<ull> low;
 
     for (ull i=0; i<roof; i++) sv[i] = 1;
     for (int i=0; i<BASIS; i++){ num_ind[i] = -1; }
@@ -196,30 +195,20 @@ vector<ull>erathosvenCircleFact(ull n){
         int ind = num[i];
         num_ind[ind] = i; 
     }
-    
-    for (ull i=0; i<roof/COUNT_NUM; i++){
-        for (int j=0; j<COUNT_NUM; j++){
-            ull dg = BASIS*i + num[j];
-            
-            if (dg < sqrt(n)) low.push_back(dg);
-        }
-    }
-
-    for(ull i=roof-1; i>0; i--){
-        if (sv[i] == 0) break;
-        for (ull j=1; j<low.size(); j++){
-            
-            ull t = low[j] * ((i/COUNT_NUM)*BASIS + num[i%COUNT_NUM]);
+    for(ull i=1; i<roof; i++){
+        if (sv[i] == 0) continue;;
+        for(ull j=i; j<roof; j++){
+            ull t = ((j/COUNT_NUM)*BASIS + num[j%COUNT_NUM]) * ((i/COUNT_NUM)*BASIS + num[i%COUNT_NUM]);
             
             if (t > n) break;
 
             int reminder = t % BASIS;
             ull ind = num_ind[reminder];
-            if ((t / BASIS)*8 + ind > roof) break;
+            // if ((t / BASIS)*8 + ind > roof) break;
             sv[(t / BASIS)*8 + ind] = 0;
         }
     }
-    low.clear();
+
     vector<ull> tmp; 
     for (ull i=0; i<roof; i++) {
         if (sv[i]!= 0) { 

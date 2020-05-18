@@ -29,7 +29,7 @@ int main(){
     Erathosven_class er;
     unsigned int st_time, end_time;
     std::vector<int> t;
-    ull x = 9000000000;
+    ull x = 900000000;
     std::cout << "N: " << x << std::endl;
 
     /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
@@ -60,6 +60,7 @@ int main(){
     end_time = clock();
     
     std::cout  << ptr.size() << std::endl << ptr.back() << std::endl;
+    // for (auto i : ptr) cout << i << ' ';
     ptr.clear();
     std::cout << "in time: " << end_time - st_time << std::endl;
     t.clear();
