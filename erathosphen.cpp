@@ -83,7 +83,6 @@ public:
 
         std::vector<int>num_ind =  dt->er->num_ind;        
         std::vector<int>num =  dt->er->num;   
-        std::vector<ull> rem;     
         ull roof =  dt->er->roof;
         int ind = dt->ind;
         int BASIS = dt->er->BASIS;

@@ -29,7 +29,7 @@ int main(){
     Erathosven_class er;
     unsigned int st_time, end_time;
     std::vector<int> t;
-    ull x = 9900000000;
+    ull x = 990000000;
     std::cout << "N: " << x << std::endl;
 
     /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
@@ -53,17 +53,17 @@ int main(){
     // std::cout << "in time: " << end_time - st_time << std::endl;
 
     // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
-    // std::cout << "start circle fact: ";
+    std::cout << "start circle fact: ";
 
-    // st_time = clock();
-    // std::vector<ull> ptr= erathosvenCircleFact(x);
-    // end_time = clock();
+    st_time = clock();
+    std::vector<ull> ptr= erathosvenCircleFact(x);
+    end_time = clock();
     
-    // std::cout  << ptr.size() << std::endl;
-    // // for (auto i : ptr) cout << i << ' ';
-    // ptr.clear();
-    // std::cout << "in time: " << end_time - st_time << std::endl;
-    // std::cout << std::endl;
+    std::cout  << ptr.size() << std::endl;
+    // for (auto i : ptr) cout << i << ' ';
+    ptr.clear();
+    std::cout << "in time: " << end_time - st_time << std::endl;
+    std::cout << std::endl;
 
     // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
     std::cout << "start thread: ";
