@@ -2,6 +2,7 @@
 #include <math.h>
 #include <pthread.h>
 #include "vector"
+#include <limits>
 
 using namespace std;
 class Erathosven_class;
@@ -217,6 +218,25 @@ vector<int> erathosvenCircleFact(unsigned int n){
     }
 
     for (int i : sv){ if (i != 0) tmp.push_back(i); }
+    return tmp;
+}
+
+vector<int>  Sundaram(int n){
+    int k = (n-2)/2;
+    bool*a = (bool*)malloc(sizeof(bool)*(k+1));
+    vector<int> tmp;
+    for (int i=0; i<(k+1); i++){ a[i]=(0); }
+
+    for(int i=1; i<k+1; i++){
+        int j=i;
+        while((unsigned long long)(i+j+2*i*j) <= k){
+            a[(unsigned long long)(i+j+2*i*j)] = true;
+            j++;
+        }
+    }
+    for (int i=0; i<(k+1); i++){
+        if (a[i] == 0) { tmp.push_back(2*i + 1); }
+    }
     return tmp;
 }
 
