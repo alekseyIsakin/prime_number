@@ -28,29 +28,30 @@ std::vector<int> erathosvenBase(unsigned int n){
 int main(){
     Erathosven_class er;
     unsigned int st_time, end_time;
-    std::vector<int> t;
-    ull x = 990000000;
+    std::vector<ull> t;
+    ull x = 990;
     std::cout << "N: " << x << std::endl;
 
     /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
     // std::cout << "start Sundaram alg: ";
         
     // st_time = clock();
-    // std::cout << Sundaram(x).size() << std::endl;
+    // std::cout << Sundaram(x)[0] << std::endl;
     // end_time = clock();
 
     // std::cout << "in time: " << end_time - st_time << std::endl;
     // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
-    // std::cout << "start base alg: ";
+    std::cout << "start Atkin alg: ";
     
-    // st_time = clock();
-    // t = erathosvenBase(x);
-    // end_time = clock();
+    st_time = clock();
+    t = Atkin(x);
+    end_time = clock();
+    std::cout << t.size() << std::endl;
+    for(auto i : t) std::cout << i << ' ';
+    std::cout << std::endl;
+    t.clear();
 
-    // std::cout  << (t).size() << std::endl;
-    // t.clear();
-
-    // std::cout << "in time: " << end_time - st_time << std::endl;
+    std::cout << "in time: " << end_time - st_time << std::endl;
 
     // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
     std::cout << "start circle fact: ";
@@ -59,22 +60,23 @@ int main(){
     std::vector<ull> ptr= erathosvenCircleFact(x);
     end_time = clock();
     
-    std::cout  << ptr.size() << std::endl;
+    std::cout  << ptr[0] << std::endl;
     // for (auto i : ptr) cout << i << ' ';
     ptr.clear();
     std::cout << "in time: " << end_time - st_time << std::endl;
     std::cout << std::endl;
 
     // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
-    std::cout << "start thread: ";
+    // std::cout << "start thread: ";
     
-    st_time = clock();
-    er.create_array(x);
-    end_time = clock();
+    // st_time = clock();
+    // er.create_array(x);
+    // std::cout << (er.get_count_prime()) << std::endl;  
+    // end_time = clock();
 
-    std::cout<< er.get_count_prime() << std::endl;  
     
-    std::cout << std::endl << "in time: " << end_time - st_time << std::endl;
+    // std::cout << "in time: " << end_time - st_time << std::endl;
+    // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
 
     // std::cout << cnt << std::endl;
     // std::cout << std::endl << er._elements.size() << std::endl;
