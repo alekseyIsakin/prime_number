@@ -155,10 +155,19 @@ public:
     }
 };
 
-std::vector<ull>erathosvenCircleFact(ull n){
-    const int COUNT_NUM = 8;
-    const int BASIS = 30;
-    const int num[] = {1, 7, 11, 13, 17, 19, 23, 29};
+std::vector<ull>erathosvenCircleFact(ull n, bool rang3=1){
+    int COUNT_NUM, BASIS = 30;
+    std::vector<int> num;
+
+    if (rang3){
+        BASIS = 30;
+        num = {1, 7, 11, 13, 17, 19, 23, 29};
+    }else{
+        BASIS = 210;
+        num = {1, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 121, 127, 131, 137, 139, 143, 149, 151, 157, 163, 167, 169, 173, 179, 181, 187, 191, 193, 197, 199, 209};
+    }
+
+    COUNT_NUM = num.size();
     ull roof = (n/BASIS);
     int num_ind[BASIS];
 
@@ -275,8 +284,18 @@ std::vector<ull> AtkinBase(ull n){
 
 std::vector<ull> Atkin2(ull n){
     bool*a = (bool*)malloc(sizeof(bool)*(n));
-    const short reminders[] = {0,1,0,0,0,1,0,0,0,0}; 
+    const std::vector<short> rem_int1 = { 1, 13, 17, 29, 37, 41, 49,53 };
+    const std::vector<short> rem_int2 = { 1, 7, 13, 19, 31, 37, 43, 49};
+    const std::vector<short> rem_int3 = { 11, 23, 47, 59};
+    bool rem1[60] = {};
+    bool rem2[60] = {};
+    bool rem3[60] = {};
+
     for(ull i = 0; i<n; i++) a[i] = 0;
+    for(int i=0; i<60; i++){ rem1[i] = 0; rem2[i] = 0; rem3[i] = 0; }
+    for(int i=0; i<rem_int1.size(); i++){ rem1[rem_int1[i]] = 1; }
+    for(int i=0; i<rem_int2.size(); i++){ rem2[rem_int2[i]] = 1; }
+    for(int i=0; i<rem_int3.size(); i++){ rem3[rem_int3[i]] = 1; }
 
     ull x2 = 0;
     for(ull i=1; i<sqrt(n); i++){
@@ -288,20 +307,16 @@ std::vector<ull> Atkin2(ull n){
             y2 = j*j;
             ull tmp = 4*x2 + y2;
             
-            if(tmp < n && reminders[tmp%12] == 1)
+            if(tmp < n && rem1[tmp%60])
                 a[tmp] = !a[tmp];
             j+=1;
-        }
 
-        y2 = 0;
-        j = 2;
-        while(j < sqrt(n)){
             y2 = j*j;
-            ull tmp = 3*x2 + y2;
+            tmp = 3*x2 + y2;
             
-            if(tmp < n && tmp%12 == 7)
+            if(tmp < n && rem2[tmp%60])
                 a[tmp] = !a[tmp];
-            j+=2;
+            j++;
         }
 
         y2 = 0;
@@ -310,7 +325,7 @@ std::vector<ull> Atkin2(ull n){
             y2 = j*j;
             ull tmp = 3*x2 - y2;
             
-            if(tmp < n && tmp%12 == 11)
+            if(tmp < n && rem3[tmp%60])
                 a[tmp] = !a[tmp];
             j++;
         }
