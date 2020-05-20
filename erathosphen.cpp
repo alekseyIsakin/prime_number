@@ -4,6 +4,7 @@
 #include "vector"
 #include <limits>
 
+#define NUMBER_PROCESSOR 6
 
 typedef unsigned long long ull;
 
@@ -18,7 +19,6 @@ public:
         Erathosven_class*er;
     };
     pthread_mutex_t mu;
-    int number_processor;
     int run_pthread;
 
     int COUNT_NUM;
@@ -50,7 +50,7 @@ public:
         for (int i=0; i<COUNT_NUM; i++){
             pthread_t t;
 
-            if (run_pthread >= number_processor){
+            if (run_pthread >= NUMBER_PROCESSOR){
                 pthread_join(pth.front(), NULL);
                 run_pthread--;
                 pth.erase(pth.begin());
@@ -150,8 +150,6 @@ public:
 
         for (int i=0; i<BASIS; i++){ num_ind.push_back(-1); }
         for (int i=0; i<COUNT_NUM; i++){ num_ind[num[i]] = i; }
-        
-        int number_processor = sysinfo.dwNumberOfProcessors;
 
         pthread_mutex_init(&mu, NULL);
     }
@@ -197,12 +195,14 @@ std::vector<ull>erathosvenCircleFact(ull n){
     }
 
     std::vector<ull> tmp = {0}; 
-    for (ull i=0; i<COUNT_NUM; i++)
+    for (ull i=0; i<COUNT_NUM; i++){
         for (ull j=0; j<roof; j++)
-        if (sv[i][j]!= 0)
-            // tmp.push_back((i/COUNT_NUM)*BASIS + num[i%COUNT_NUM]);
-            tmp[0]++;
-    free(sv);
+            if (sv[i][j]!= 0)
+                // tmp.push_back((i/COUNT_NUM)*BASIS + num[i%COUNT_NUM]);
+                tmp[0]++;    
+        delete sv[i];
+    }
+    delete sv;
     return tmp;
 }
 
@@ -225,38 +225,105 @@ std::vector<ull>  Sundaram(ull n){
         // if (a[i] == 0) { tmp.push_back(2*i + 1); }
         if (a[i] == 0) { tmp[0]++; }
     }
-    free (a);
+    delete a;
     return tmp;
 }
 
-std::vector<ull> Atkin(ull n){
+std::vector<ull> AtkinBase(ull n){
     bool*a = (bool*)malloc(sizeof(bool)*(n));
 
     for(ull i = 0; i<n; i++) a[i] = 0;
 
-    for(ull i=1; i<sqrt(n); i++)
+    ull x2 = 0;
+    for(ull i=1; i<sqrt(n); i++){
+        ull y2 = 0;
+        x2 += 2*i -1; // i*i
         for(ull j=1; j<sqrt(n); j++){
-            ull tmp;
+            ull tmp = 0;
+            y2 += 2*j -1; // j*j
             
-            tmp = (4*i*i + j*j);
+            tmp = (4*x2 + y2);
+
             if(tmp <= n && (tmp % 12 == 1 || tmp % 12 == 5)) a[tmp] = !a[tmp];
             
             // (3*i*i + j*j)
-            tmp -= i*i;
+            tmp -= x2;
             if(tmp <= n && (tmp % 12 == 7)) a[tmp] = !a[tmp];
 
             if(i > j){
-                tmp -= 2*j*j;
+                tmp -= 2*y2;
                 // (3*i*i - j*j)
                 if(tmp <= n && tmp % 12 == 11) a[tmp] = !a[tmp];
             }
         }
+    }
     
-    std::vector<ull> sv;
+    std::vector<ull> sv = {0};
+    // std::vector<ull> sv;
+    for(ull i=5; i<n; i++){
+        if (a[i]){
+            // sv.push_back(i);
+            sv[0]++;
+            for(ull j=i*i; j<n; j+=i*i){
+                a[j] = 0;
+            }
+        }
+    }
+
+    return sv;
+}
+
+std::vector<ull> Atkin2(ull n){
+    bool*a = (bool*)malloc(sizeof(bool)*(n));
+    const short reminders[] = {0,1,0,0,0,1,0,0,0,0}; 
+    for(ull i = 0; i<n; i++) a[i] = 0;
+
+    ull x2 = 0;
+    for(ull i=1; i<sqrt(n); i++){
+        x2 += 2*i -1; // i*i
+        ull y2 = 0;
+        ull j = 1;
+
+        while(j < sqrt(n)){
+            y2 = j*j;
+            ull tmp = 4*x2 + y2;
+            
+            if(tmp < n && reminders[tmp%12] == 1)
+                a[tmp] = !a[tmp];
+            j+=1;
+        }
+
+        y2 = 0;
+        j = 2;
+        while(j < sqrt(n)){
+            y2 = j*j;
+            ull tmp = 3*x2 + y2;
+            
+            if(tmp < n && tmp%12 == 7)
+                a[tmp] = !a[tmp];
+            j+=2;
+        }
+
+        y2 = 0;
+        j = i%2 + 1;
+        while(j <= i){
+            y2 = j*j;
+            ull tmp = 3*x2 - y2;
+            
+            if(tmp < n && tmp%12 == 11)
+                a[tmp] = !a[tmp];
+            j++;
+        }
+
+
+    }
+    
+    std::vector<ull> sv = {0};
 
     for(ull i=5; i<n; i++){
         if (a[i]){
-            sv.push_back(i);
+            // sv.push_back(i);
+            sv[0]++;
             for(ull j=i*i; j<n; j+=i*i){
                 a[j] = 0;
             }
