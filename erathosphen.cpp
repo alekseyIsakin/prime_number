@@ -335,7 +335,7 @@ std::vector<ull> Atkin2(ull n){
     
     std::vector<ull> sv = {0};
 
-    for(ull i=5; i<n; i++){
+    for(ull i=7; i<n; i++){
         if (a[i]){
             // sv.push_back(i);
             sv[0]++;

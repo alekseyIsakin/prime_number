@@ -25,50 +25,50 @@ std::vector<int> erathosvenBase(unsigned int n){
     return tmp;
 }
 
-int main(){
+int main(int argc, char*argv[]){
     Erathosven_class er;
     unsigned int st_time, end_time;
     std::vector<ull> t;
-    ull x = 2100000000;
+    ull x = atoi(argv[1]);
     std::cout << "N: " << x << std::endl;
 
     // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
-    // std::cout << "start Atkin alg: ";
+    std::cout << "start Atkin alg: ";
     
-    // st_time = clock();
-    // t = AtkinBase(x);
-    // end_time = clock();
-    // // std::cout << t.size() << std::endl;
-    // for(auto i : t) std::cout << i << ' ';
-    // std::cout << std::endl;
-    // t.clear();
+    st_time = clock();
+    t = AtkinBase(x);
+    end_time = clock();
+    // std::cout << t.size() << std::endl;
+    for(auto i : t) std::cout << i << ' ';
+    std::cout << std::endl;
+    t.clear();
 
-    // std::cout << "in time: " << end_time - st_time << std::endl;
-    // std::cout << std::endl;
+    std::cout << "in time: " << end_time - st_time << std::endl;
+    std::cout << std::endl;
 
     // // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
-    // std::cout << "start test Atkin alg: ";
+    std::cout << "start test Atkin alg: ";
     
-    // st_time = clock();
-    // t = Atkin2(x);
-    // end_time = clock();
-    // // std::cout << t.size() << std::endl;
-    // for(auto i : t) std::cout << i << ' ';
-    // std::cout << std::endl;
-    // t.clear();
+    st_time = clock();
+    t = Atkin2(x);
+    end_time = clock();
+    // std::cout << t.size() << std::endl;
+    for(auto i : t) std::cout << i << ' ';
+    std::cout << std::endl;
+    t.clear();
 
-    // std::cout << "in time: " << end_time - st_time << std::endl;
-    // std::cout << std::endl;
+    std::cout << "in time: " << end_time - st_time << std::endl;
+    std::cout << std::endl;
 
     // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
-    // std::cout << "start Sundaram alg: ";
+    std::cout << "start Sundaram alg: ";
         
-    // st_time = clock();
-    // std::cout << Sundaram(x)[0] << std::endl;
-    // end_time = clock();
+    st_time = clock();
+    std::cout << Sundaram(x)[0] << std::endl;
+    end_time = clock();
 
-    // std::cout << "in time: " << end_time - st_time << std::endl;
-    // std::cout << std::endl;
+    std::cout << "in time: " << end_time - st_time << std::endl;
+    std::cout << std::endl;
 
     // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
     std::cout << "start circle fact3: ";
@@ -81,7 +81,7 @@ int main(){
     // for (auto i : ptr) cout << i << ' ';
     ptr.clear();
     std::cout << "in time: " << end_time - st_time << std::endl;
-    // std::cout << std::endl;
+    std::cout << std::endl;
     // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
     std::cout << "start circle fact4: ";
 
@@ -93,7 +93,7 @@ int main(){
     // for (auto i : ptr) cout << i << ' ';
     ptr.clear();
     std::cout << "in time: " << end_time - st_time << std::endl;
-    // std::cout << std::endl;
+    std::cout << std::endl;
 
     // /* ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ */
     std::cout << "start thread: ";
